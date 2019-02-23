@@ -20,7 +20,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 	static NSString *CellIdentifier = @"WhatAboutThis";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	origCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"PSTableCell"];
+
 	if (indexPath.section == 0) {
 		if (indexPath.row == 1) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
@@ -64,12 +64,40 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
         }
     }
+
+	if (indexPath.section == 1) {
+		if (indexPath.row == 7) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+			cell.hidden = TRUE;
+			return cell;
+		}
+		if (indexPath.row == 9) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+			cell.hidden = TRUE;
+			return cell;
+		}
+		if (indexPath.row == 10) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+			cell.hidden = TRUE;
+			return cell;
+		}
+	}
+
 	return %orig;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 & indexPath.row == 1) {
+		return 0;
+	}
+	if (indexPath.section == 1 & indexPath.row == 7) {
+		return 0;
+	}
+	if (indexPath.section == 1 & indexPath.row == 9) {
+		return 0;
+	}
+	if (indexPath.section == 1 & indexPath.row == 10) {
 		return 0;
 	}
     return %orig;
