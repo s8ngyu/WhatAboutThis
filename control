@@ -1,9 +1,10 @@
 Package: com.peterdev.whatabouthis
 Name: WhatAboutThis
-Depends: mobilesubstrate
-Version: 0.0.1
+Depends: mobilesubstrate, firmware (<= 12.1.4)
+Version: 1.0
 Architecture: iphoneos-arm
 Description: An awesome MobileSubstrate tweak!
+Conflicts: xyzzy.xninja.systeminfo
 Maintainer: PeterDev <djperter@icloud.com>
 Author: PeterDev <djperter@icloud.com>
 Section: Tweaks
