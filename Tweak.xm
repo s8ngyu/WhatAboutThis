@@ -1,3 +1,5 @@
+#import "./headers/MobileGesalt.h"
+
 %hook PSUIAboutController
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
@@ -7,7 +9,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
 	static NSString *CellIdentifier = @"WhatAboutThis";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -30,22 +31,27 @@
         }
 		if(indexPath.row == 3) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+			NSString *modelName = (NSString*)MGCopyAnswer(kMGMarketingName);
 			cell.textLabel.text = @"Model Name";
-			cell.detailTextLabel.text = @"N/A";
+			cell.detailTextLabel.text = modelName;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
 		if(indexPath.row == 4) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+			NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
+			NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
+			regionInfo = [modelNumber stringByAppendingString : regionInfo];
 			cell.textLabel.text = @"Model Number";
-			cell.detailTextLabel.text = @"N/A";
+			cell.detailTextLabel.text = regionInfo;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
 		if(indexPath.row == 5) {
+			NSString *serialNumber = (NSString*)MGCopyAnswer(kMGSerialNumber);
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 			cell.textLabel.text = @"Serial Number";
-			cell.detailTextLabel.text = @"N/A";
+			cell.detailTextLabel.text = serialNumber;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
@@ -60,4 +66,5 @@
 	}
     return %orig;
 }
+
 %end
