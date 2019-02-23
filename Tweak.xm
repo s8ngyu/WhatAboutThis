@@ -9,6 +9,7 @@
 static NSDictionary<NSString*, NSString*> *translationDict;
 
 %hook PSUIAboutController
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
 		return %orig + 5;
@@ -101,6 +102,30 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 		return 0;
 	}
     return %orig;
+}
+
+%new
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 0 & indexPath.row == 5) {
+		return YES;
+	}
+    return NO;
+}
+
+%new
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+	if (indexPath.section == 0 & indexPath.row == 5) {
+		return (action == @selector(copy:));
+	}
+    return nil;
+}
+
+%new
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    if (action == @selector(copy:)) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [[UIPasteboard generalPasteboard] setString:cell.detailTextLabel.text];
+    }
 }
 
 %end
