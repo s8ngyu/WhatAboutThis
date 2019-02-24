@@ -12,7 +12,9 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
-		return %orig + 5;
+		int wat = 6;
+		NSInteger watNSInt = (NSInteger) wat;
+		return %orig + watNSInt;
 	}
 	return %orig;
 }
@@ -21,10 +23,10 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 	static NSString *CellIdentifier = @"WhatAboutThis";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 
 	if (indexPath.section == 0) {
 		if (indexPath.row == 1) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 			cell.textLabel.text = @"Hide me";
 			cell.detailTextLabel.text = @"I'm a spy from the Apple";
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -32,22 +34,26 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
         }
 		if (indexPath.row == 2) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+			cell.textLabel.text = @"Hide me";
+			cell.detailTextLabel.text = @"I'm a spy from the Apple";
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+			cell.hidden = TRUE;
+			return cell;
+        }
+		if (indexPath.row == 3) {
 			cell.textLabel.text = [translationDict objectForKey:kSoftwareVersion];
 			cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 3) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+		if (indexPath.row == 4) {
 			NSString *modelName = (NSString*)MGCopyAnswer(kMGMarketingName);
 			cell.textLabel.text = [translationDict objectForKey:kModelName];
 			cell.detailTextLabel.text = modelName;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 4) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+		if (indexPath.row == 5) {
 			NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
 			NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
 			regionInfo = [modelNumber stringByAppendingString : regionInfo];
@@ -56,9 +62,8 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 5) {
+		if (indexPath.row == 6) {
 			NSString *serialNumber = (NSString*)MGCopyAnswer(kMGSerialNumber);
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 			cell.textLabel.text = [translationDict objectForKey:kSerialNumber];
 			cell.detailTextLabel.text = serialNumber;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -66,6 +71,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
         }
     }
 
+	//Hide the originals
 	if (indexPath.section == 1) {
 		if (indexPath.row == 7) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
@@ -92,6 +98,10 @@ static NSDictionary<NSString*, NSString*> *translationDict;
     if (indexPath.section == 0 & indexPath.row == 1) {
 		return 0;
 	}
+	if (indexPath.section == 0 & indexPath.row == 2) {
+		return 0;
+	}
+	//Hide the originals
 	if (indexPath.section == 1 & indexPath.row == 7) {
 		return 0;
 	}
@@ -106,7 +116,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 %new
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 & indexPath.row == 5) {
+	if (indexPath.section == 0 & indexPath.row == 6) {
 		return YES;
 	}
     return NO;
@@ -114,7 +124,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 %new
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	if (indexPath.section == 0 & indexPath.row == 5) {
+	if (indexPath.section == 0 & indexPath.row == 6) {
 		return (action == @selector(copy:));
 	}
     return nil;
@@ -127,7 +137,6 @@ static NSDictionary<NSString*, NSString*> *translationDict;
         [[UIPasteboard generalPasteboard] setString:cell.detailTextLabel.text];
     }
 }
-
 %end
 
 %ctor{
