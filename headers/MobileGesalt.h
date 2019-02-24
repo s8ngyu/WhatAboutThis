@@ -142,6 +142,7 @@ extern "C" {
     static const CFStringRef kMSupportedKeyboards = CFSTR("SupportedKeyboards");
     static const CFStringRef kMGTotalSystemAvailable = CFSTR("TotalSystemAvailable");
     static const CFStringRef kMGMarketingName = CFSTR("marketing-name");
+    static const CFStringRef kMGRegulatoryModelNumber = CFSTR("RegulatoryModelNumber");
 
 #pragma mark - Capability Information
 
