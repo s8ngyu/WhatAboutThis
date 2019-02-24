@@ -114,6 +114,24 @@ static NSDictionary<NSString*, NSString*> *translationDict;
     return %orig;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+
+	NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
+	NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
+	regionInfo = [modelNumber stringByAppendingString : regionInfo];
+
+	NSString *hwInfo = (NSString*)MGCopyAnswer(kMGRegulatoryModelNumber);
+
+	if ([cell.detailTextLabel.text isEqualToString:regionInfo]) {
+		cell.detailTextLabel.text = hwInfo;
+	} else if ([cell.detailTextLabel.text isEqualToString:hwInfo]) {
+		cell.detailTextLabel.text = regionInfo;
+	}
+
+	%orig;
+}
+
 %new
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 & indexPath.row == 6) {
