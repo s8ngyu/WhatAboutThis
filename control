@@ -4,7 +4,6 @@ Depends: mobilesubstrate, firmware (<= 12.1.4)
 Version: 1.0.1
 Architecture: iphoneos-arm
 Description: Brings iOS 12.2 style About page in the Settings app to older versions.
-Conflicts: xyz.xninja.systeminfo (<= 2.0.0-1)
 Maintainer: PeterDev <djperter@icloud.com>
 Author: PeterDev <djperter@icloud.com>
 Section: Tweaks
