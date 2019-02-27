@@ -272,11 +272,18 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 	regionInfo = [modelNumber stringByAppendingString : regionInfo];
 
 	NSString *hwInfo = (NSString*)MGCopyAnswer(kMGRegulatoryModelNumber);
+	NSString *buildNumber = (NSString*)MGCopyAnswer(kMGBuildVersion);
 
 	if ([cell.detailTextLabel.text isEqualToString:regionInfo]) {
 		cell.detailTextLabel.text = hwInfo;
 	} else if ([cell.detailTextLabel.text isEqualToString:hwInfo]) {
 		cell.detailTextLabel.text = regionInfo;
+	}
+
+	if ([cell.detailTextLabel.text isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
+		cell.detailTextLabel.text = buildNumber;
+	} else if ([cell.detailTextLabel.text isEqualToString:buildNumber]) {
+		cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
 	}
 
 	%orig;
