@@ -12,7 +12,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
-		int wat = 21;
+		int wat = 19;
 		NSInteger watNSInt = (NSInteger) wat;
 		return %orig + watNSInt;
 	}
@@ -132,33 +132,19 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
 		}
 		if (indexPath.row == 16) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 17) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 18) {
 			cell.textLabel.text = [translationDict objectForKey:kSoftwareVersion];
 			cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 19) {
+		if (indexPath.row == 17) {
 			NSString *modelName = (NSString*)MGCopyAnswer(kMGMarketingName);
 			cell.textLabel.text = [translationDict objectForKey:kModelName];
 			cell.detailTextLabel.text = modelName;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 20) {
+		if (indexPath.row == 18) {
 			NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
 			NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
 			regionInfo = [modelNumber stringByAppendingString : regionInfo];
@@ -167,7 +153,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 21) {
+		if (indexPath.row == 19) {
 			NSString *serialNumber = (NSString*)MGCopyAnswer(kMGSerialNumber);
 			cell.textLabel.text = [translationDict objectForKey:kSerialNumber];
 			cell.detailTextLabel.text = serialNumber;
@@ -243,12 +229,6 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 		return 0;
 	}
 	if (indexPath.section == 0 & indexPath.row == 15) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 16) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 17) {
 		return 0;
 	}
 	//Hide the originals
