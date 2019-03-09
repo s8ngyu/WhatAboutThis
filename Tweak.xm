@@ -26,104 +26,13 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 	cell = [[%c(PSTableCell) alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 
 	if (indexPath.section == 0) {
-		if (indexPath.row == 1) {
+		if (indexPath.row >= 1 & indexPath.row <= 14) {
 			cell.textLabel.text = @"Hide me";
 			cell.detailTextLabel.text = @"I'm a spy from the Apple";
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			cell.hidden = TRUE;
 			return cell;
         }
-		if (indexPath.row == 2) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 3) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 4) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 5) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 6) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 7) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 8) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 9) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 10) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 11) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-        }
-		if (indexPath.row == 12) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 13) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 14) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
 		if (indexPath.row == 15) {
 			cell.textLabel.text = [translationDict objectForKey:kSoftwareVersion];
 			cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
