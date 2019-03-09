@@ -64,6 +64,34 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
         }
     }
+	
+	if (indexPath.section == 1) {
+		NSString *serialNumber = (NSString*)MGCopyAnswer(kMGSerialNumber);
+		NSString *buildNumber = (NSString*)MGCopyAnswer(kMGBuildVersion);
+		NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
+		NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
+		NSString *versionForm = @"sv (bn)";
+
+		versionForm = [versionForm stringByReplacingOccurrencesOfString:@"sv" withString:[[UIDevice currentDevice] systemVersion]];
+		versionForm = [versionForm stringByReplacingOccurrencesOfString:@"bn" withString:buildNumber]; 
+		regionInfo = [modelNumber stringByAppendingString : regionInfo];
+
+		if ([cell.detailTextLabel.text isEqualToString:versionForm]) {
+			cell.hidden = YES;
+			return cell;
+		}
+
+		if ([cell.detailTextLabel.text isEqualToString:modelNumber]) {
+			cell.hidden = YES;
+			return cell;
+		}
+
+		if ([cell.detailTextLabel.text isEqualToString:serialNumber]) {
+			cell.hidden = YES;
+			return cell;
+		}
+
+	}
 
 	return %orig;
 }
@@ -91,17 +119,14 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 	if (indexPath.section == 1) {
 		//Software Version
 		if ([cell.detailTextLabel.text isEqualToString:versionForm]) {
-			cell.hidden = YES;
 			return 0;
 		}
 		//Model Number
 		if ([cell.detailTextLabel.text isEqualToString:regionInfo]) {
-			cell.hidden = YES;
 			return 0;
 		}
 		//Serial Number
 		if ([cell.detailTextLabel.text isEqualToString:serialNumber]) {
-			cell.hidden = YES;
 			return 0;
 		}
 	}
