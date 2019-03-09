@@ -12,7 +12,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) {
-		int wat = 19;
+		int wat = 18;
 		NSInteger watNSInt = (NSInteger) wat;
 		return %orig + watNSInt;
 	}
@@ -60,14 +60,14 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			cell.hidden = TRUE;
 			return cell;
-				}
+		}
 		if (indexPath.row == 6) {
 			cell.textLabel.text = @"Hide me";
 			cell.detailTextLabel.text = @"I'm a spy from the Apple";
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			cell.hidden = TRUE;
 			return cell;
-				}
+		}
 		if (indexPath.row == 7) {
 			cell.textLabel.text = @"Hide me";
 			cell.detailTextLabel.text = @"I'm a spy from the Apple";
@@ -125,26 +125,19 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
 		}
 		if (indexPath.row == 15) {
-			cell.textLabel.text = @"Hide me";
-			cell.detailTextLabel.text = @"I'm a spy from the Apple";
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 16) {
 			cell.textLabel.text = [translationDict objectForKey:kSoftwareVersion];
 			cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 17) {
+		if (indexPath.row == 16) {
 			NSString *modelName = (NSString*)MGCopyAnswer(kMGMarketingName);
 			cell.textLabel.text = [translationDict objectForKey:kModelName];
 			cell.detailTextLabel.text = modelName;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 18) {
+		if (indexPath.row == 17) {
 			NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
 			NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
 			regionInfo = [modelNumber stringByAppendingString : regionInfo];
@@ -153,7 +146,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			return cell;
         }
-		if (indexPath.row == 19) {
+		if (indexPath.row == 18) {
 			NSString *serialNumber = (NSString*)MGCopyAnswer(kMGSerialNumber);
 			cell.textLabel.text = [translationDict objectForKey:kSerialNumber];
 			cell.detailTextLabel.text = serialNumber;
@@ -161,87 +154,33 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
         }
     }
-
+	/*
 	//Hide the originals
 	if (indexPath.section == 1) {
-		if (indexPath.row == 7) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 9) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-			cell.hidden = TRUE;
-			return cell;
-		}
-		if (indexPath.row == 10) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+		//Software Version
+		NSString *softwareVersion = [[UIDevice currentDevice] systemVersion];
+		if ([cell.detailTextLabel.text rangeOfString:softwareVersion].location == NSNotFound) {
+			return %orig;
+		} else {
 			cell.hidden = TRUE;
 			return cell;
 		}
 	}
+	*/
 
 	return %orig;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 & indexPath.row == 1) {
-		return 0;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+	if (indexPath.section == 0) {
+		if (indexPath.row >= 1 & indexPath.row <= 14) {
+			return 0;
+		}
 	}
-	if (indexPath.section == 0 & indexPath.row == 2) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 3) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 4) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 5) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 6) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 7) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 8) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 9) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 10) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 11) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 12) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 13) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 14) {
-		return 0;
-	}
-	if (indexPath.section == 0 & indexPath.row == 15) {
-		return 0;
-	}
-	//Hide the originals
-	if (indexPath.section == 1 & indexPath.row == 7) {
-		return 0;
-	}
-	if (indexPath.section == 1 & indexPath.row == 9) {
-		return 0;
-	}
-	if (indexPath.section == 1 & indexPath.row == 10) {
-		return 0;
-	}
-    return %orig;
+	//Cell Height 0 here
+
+	return %orig;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
