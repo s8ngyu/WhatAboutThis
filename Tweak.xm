@@ -16,11 +16,12 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 		NSInteger watNSInt = (NSInteger) wat;
 		return %orig + watNSInt;
 	}
+
 	return %orig;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *CellIdentifier = @"WhatAboutThis";
+	static NSString *CellIdentifier = @"PSTableCell";
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	cell = [[%c(PSTableCell) alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
@@ -63,31 +64,47 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 			return cell;
         }
     }
-	/*
-	//Hide the originals
-	if (indexPath.section == 1) {
-		//Software Version
-		NSString *softwareVersion = [[UIDevice currentDevice] systemVersion];
-		if ([cell.detailTextLabel.text rangeOfString:softwareVersion].location == NSNotFound) {
-			return %orig;
-		} else {
-			cell.hidden = TRUE;
-			return cell;
-		}
-	}
-	*/
 
 	return %orig;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+	NSString *serialNumber = (NSString*)MGCopyAnswer(kMGSerialNumber);
+	NSString *buildNumber = (NSString*)MGCopyAnswer(kMGBuildVersion);
+	NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
+	NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
+	NSString *versionForm = @"sv (bn)";
+
+	versionForm = [versionForm stringByReplacingOccurrencesOfString:@"sv" withString:[[UIDevice currentDevice] systemVersion]];
+	versionForm = [versionForm stringByReplacingOccurrencesOfString:@"bn" withString:buildNumber]; 
+	regionInfo = [modelNumber stringByAppendingString : regionInfo];
+
 	if (indexPath.section == 0) {
 		if (indexPath.row >= 1 & indexPath.row <= 14) {
 			return 0;
 		}
 	}
-	//Cell Height 0 here
+
+	if (indexPath.section == 1) {
+		//Software Version
+		if ([cell.detailTextLabel.text isEqualToString:versionForm]) {
+			cell.hidden = YES;
+			return 0;
+		}
+		//Model Number
+		if ([cell.detailTextLabel.text isEqualToString:regionInfo]) {
+			cell.hidden = YES;
+			return 0;
+		}
+		//Serial Number
+		if ([cell.detailTextLabel.text isEqualToString:serialNumber]) {
+			cell.hidden = YES;
+			return 0;
+		}
+	}
 
 	return %orig;
 }
