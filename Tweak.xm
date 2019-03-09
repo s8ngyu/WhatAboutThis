@@ -254,16 +254,23 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 	NSString *hwInfo = (NSString*)MGCopyAnswer(kMGRegulatoryModelNumber);
 	NSString *buildNumber = (NSString*)MGCopyAnswer(kMGBuildVersion);
 
-	if ([cell.detailTextLabel.text isEqualToString:regionInfo]) {
-		cell.detailTextLabel.text = hwInfo;
-	} else if ([cell.detailTextLabel.text isEqualToString:hwInfo]) {
-		cell.detailTextLabel.text = regionInfo;
-	}
+	NSString *versionForm = @"sv (bn)";
 
-	if ([cell.detailTextLabel.text isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
-		cell.detailTextLabel.text = buildNumber;
-	} else if ([cell.detailTextLabel.text isEqualToString:buildNumber]) {
-		cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
+	versionForm = [versionForm stringByReplacingOccurrencesOfString:@"sv" withString:[[UIDevice currentDevice] systemVersion]];
+	versionForm = [versionForm stringByReplacingOccurrencesOfString:@"bn" withString:buildNumber]; 
+
+	if (indexPath.section == 0) {
+		if ([cell.detailTextLabel.text isEqualToString:regionInfo]) {
+			cell.detailTextLabel.text = hwInfo;
+		} else if ([cell.detailTextLabel.text isEqualToString:hwInfo]) {
+			cell.detailTextLabel.text = regionInfo;
+		}
+
+		if ([cell.detailTextLabel.text isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
+			cell.detailTextLabel.text = versionForm;
+		} else if ([cell.detailTextLabel.text isEqualToString:versionForm]) {
+			cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
+		}
 	}
 
 	%orig;
@@ -271,7 +278,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 %new
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 & indexPath.row == 21) {
+	if (indexPath.section == 0 & indexPath.row == 18) {
 		return YES;
 	}
     return NO;
@@ -279,7 +286,7 @@ static NSDictionary<NSString*, NSString*> *translationDict;
 
 %new
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	if (indexPath.section == 0 & indexPath.row == 21) {
+	if (indexPath.section == 0 & indexPath.row == 18) {
 		return (action == @selector(copy:));
 	}
     return nil;
