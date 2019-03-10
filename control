@@ -1,7 +1,7 @@
 Package: com.peterdev.whatabouthis
 Name: WhatAboutThis
 Depends: mobilesubstrate, firmware (<= 12.1.4)
-Version: 1.0.1
+Version: 1.1
 Architecture: iphoneos-arm
 Description: Brings iOS 12.2 style About page in the Settings app to older versions.
 Maintainer: PeterDev <djperter@icloud.com>
