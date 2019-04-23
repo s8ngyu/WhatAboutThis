@@ -1,3 +1,5 @@
+ARCHS = armv7s armv7 arm64 arm64e
+
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = WhatAboutThis
