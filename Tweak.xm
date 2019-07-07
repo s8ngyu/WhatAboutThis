@@ -54,7 +54,6 @@
 	PSTableCell *cell = %orig;
 
 	NSDictionary *languageDic = [NSLocale componentsFromLocaleIdentifier:[[NSLocale preferredLanguages] objectAtIndex:0]];
-
 	NSDictionary *localized = [NSDictionary dictionaryWithContentsOfFile:[self getLocalizationsPath:[languageDic objectForKey:@"kCFLocaleLanguageCodeKey"]]];
 
 	if([cell.specifier.identifier isEqualToString:@"WAT_SOFTWARE_VERSION"]) {
