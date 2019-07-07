@@ -99,16 +99,12 @@
 }
 
 -(void)reloadSpecifiers {
-	//nothing
+	//noob
 }
 %end
 
 %hook AboutDataSource
 -(void)performUpdates:(id)arg1 {
-	return;
-}
-
--(void)performUpdatesAnimated:(BOOL)arg1 usingBlock:(/*^block*/id)arg2 {
-	return;
+	//noob
 }
 %end
