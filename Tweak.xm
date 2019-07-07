@@ -45,9 +45,9 @@
 	[self removeSpecifierID:@"WAT_SOFTWARE_VERSION" animated:NO];
 	//Add
 	[self insertSpecifier:[self specifierWithName:@"WAT_SERIAL_NUMBER" value:nil isCopyable:TRUE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
-	[self insertSpecifier:[self specifierWithName:@"WAT_MODEL_NUMBER" value:nil isCopyable:FALSE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
-	[self insertSpecifier:[self specifierWithName:@"WAT_MODEL_NAME" value:nil isCopyable:FALSE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
-	[self insertSpecifier:[self specifierWithName:@"WAT_SOFTWARE_VERSION" value:nil isCopyable:FALSE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
+	[self insertSpecifier:[self specifierWithName:@"WAT_MODEL_NUMBER" value:nil isCopyable:TRUE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
+	[self insertSpecifier:[self specifierWithName:@"WAT_MODEL_NAME" value:nil isCopyable:TRUE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
+	[self insertSpecifier:[self specifierWithName:@"WAT_SOFTWARE_VERSION" value:nil isCopyable:TRUE] afterSpecifierID:@"NAME_CELL_ID" animated:NO];
 }
 
 - (PSTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
