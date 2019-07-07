@@ -4,6 +4,7 @@
 
 @interface PSUIAboutController : PSListController
 -(id)specifierWithName:(NSString *)name value:(NSString *)value isCopyable:(BOOL)isCopyable;
+-(NSString *)getLocalizationsPath:(NSString *)lang;
 @end
 
 %hook PSUIAboutController
@@ -18,6 +19,18 @@
 	[specifier setProperty:[NSNumber numberWithBool:isCopyable] forKey:@"isCopyable"];
 	specifier.cellType = 4;
 	return specifier;
+}
+
+%new
+-(NSString *)getLocalizationsPath:(NSString *)lang {
+	NSString *defaultPath = @"/Library/WhatAboutThis/lang.lproj/Localizable.strings";
+	defaultPath = [defaultPath stringByReplacingOccurrencesOfString:@"lang" withString:lang];
+
+	if ([[NSFileManager defaultManager] fileExistsAtPath:defaultPath]) {
+		return defaultPath;
+	}
+
+	return @"/Library/WhatAboutThis/base.lproj/Localizable.strings";
 }
 
 -(void)viewWillAppear:(BOOL)arg1 {
@@ -40,13 +53,17 @@
 - (PSTableCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	PSTableCell *cell = %orig;
 
+	NSDictionary *languageDic = [NSLocale componentsFromLocaleIdentifier:[[NSLocale preferredLanguages] objectAtIndex:0]];
+
+	NSDictionary *localized = [NSDictionary dictionaryWithContentsOfFile:[self getLocalizationsPath:[languageDic objectForKey:@"kCFLocaleLanguageCodeKey"]]];
+
 	if([cell.specifier.identifier isEqualToString:@"WAT_SOFTWARE_VERSION"]) {
-		cell.textLabel.text = @"Software Version";
+		cell.textLabel.text = [localized objectForKey:@"SOFTWARE_VERSION"];
 		cell.detailTextLabel.text = [[UIDevice currentDevice] systemVersion];
 	}
 
 	if([cell.specifier.identifier isEqualToString:@"WAT_MODEL_NAME"]) {
-		cell.textLabel.text = @"Model Name";
+		cell.textLabel.text = [localized objectForKey:@"MODEL_NAME"];
 		cell.detailTextLabel.text = (NSString*)MGCopyAnswer(kMGMarketingName);
 	}
 
@@ -54,12 +71,12 @@
 		NSString *modelNumber = (NSString*)MGCopyAnswer(kMGModelNumber);
 		NSString *regionInfo = (NSString*)MGCopyAnswer(kMGRegionInfo);
 		regionInfo = [modelNumber stringByAppendingString : regionInfo];
-		cell.textLabel.text = @"Model Number";
+		cell.textLabel.text = [localized objectForKey:@"MODEL_NUMBER"];
 		cell.detailTextLabel.text = regionInfo;
 	}
 
 	if([cell.specifier.identifier isEqualToString:@"WAT_SERIAL_NUMBER"]) {
-		cell.textLabel.text = @"Serial Number";
+		cell.textLabel.text = [localized objectForKey:@"SERIAL_NUMBER"];
 		cell.detailTextLabel.text = (NSString*)MGCopyAnswer(kMGSerialNumber);
 	}
 
